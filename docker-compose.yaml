@@ -1,0 +1,39 @@
+services:
+  init-db:
+    image: postgres:13.14-bullseye
+    environment:
+      - PGPASSWORD=password
+      - PGUSER=postgres
+      - PGHOST=db
+    depends_on:
+      db:
+        condition: service_healthy
+    command: psql < /words.sql
+    volumes:
+      - ./db/words.sql:/words.sql
+
+  db:
+    image: postgres:13.14-bullseye
+    environment:
+      - POSTGRES_PASSWORD=password
+    ports:
+      - "5432:5432"
+    healthcheck:
+      test: ["CMD", "pg_isready"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+  
+  web:
+    build:
+      context: web
+    ports:
+      - "80:80"
+    stdin_open: true 
+    tty: true
+        
+  words:
+    build:
+      context: words
+    ports:
+      - "8080:8080"
