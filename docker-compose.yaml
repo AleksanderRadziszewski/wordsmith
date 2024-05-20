@@ -16,6 +16,8 @@ services:
     image: postgres:13.14-bullseye
     environment:
       - POSTGRES_PASSWORD=password
+      - PGPASSWORD=password
+      - PGUSER=postgres
     ports:
       - "5432:5432"
     healthcheck:
