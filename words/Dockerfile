@@ -9,4 +9,4 @@ RUN adduser --system stefan
 USER stefan
 COPY --from=build /root/target /home/stefan
 EXPOSE 8080
-CMD java -jar /root/words.jar
+CMD java -jar /home/stefan/words.jar
