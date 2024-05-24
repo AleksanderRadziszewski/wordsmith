@@ -27,6 +27,8 @@ services:
       interval: 10s
       timeout: 5s
       retries: 5
+    volumes:
+      - db_data:/var/lib/postgresql/data
     networks:
       - db
   
@@ -58,7 +60,13 @@ services:
       - "8081:80"
     networks:
       - db
+    volumes:
+      - pg_admin_data:/var/lib/pgadmin 
 
 networks:
   app:
   db:
+
+volumes:
+  db_data:
+  pg_admin_data:
