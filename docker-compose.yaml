@@ -8,7 +8,7 @@ services:
     depends_on:
       db:
         condition: service_healthy
-    command: psql < /words.sql
+    command: psql -f words.sql
     volumes:
       - ./db/words.sql:/words.sql
     networks:
